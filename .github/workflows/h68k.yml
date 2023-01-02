@@ -67,13 +67,14 @@ jobs:
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        [ -e 040-del-rss-log.patch ] && cp 040-del-rss-log.patch openwrt/package/lean/r8125/patches/040-del-rss-log.patch
+        #[ -e 040-del-rss-log.patch ] && cp 040-del-rss-log.patch openwrt/package/lean/r8125/patches/040-del-rss-log.patch
 
         # 注释所有 
         #sed -i 's/^TARGET_DEVICES += .*/#&/' openwrt/target/linux/rockchip/image/armv8.mk
         # 打开 hinlink_opc-h68k 
         #sed -i 's/^#TARGET_DEVICES += hinlink_opc-h68k/TARGET_DEVICES += hinlink_opc-h68k/' openwrt/target/linux/rockchip/image/armv8.mk
-
+        #改5.15为6.1版
+        sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=6.1/g' openwrt/target/linux/rockchip/Makefile
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
@@ -84,11 +85,11 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    - name: Clone poweroff
-      run: |
-           cd openwrt
-           git clone https://github.com/esirplayground/luci-app-poweroff.git
-           mv luci-app-poweroff package/feeds/luci/luci-app-poweroff      
+    #- name: Clone poweroff
+     # run: |
+      #     cd openwrt
+       #    git clone https://github.com/esirplayground/luci-app-poweroff.git
+        #   mv luci-app-poweroff package/feeds/luci/luci-app-poweroff      
 
     - name: Load custom configuration
       run: |
