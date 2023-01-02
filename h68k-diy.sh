@@ -57,8 +57,8 @@ sed -i "s/OpenWrt /OpenWrt build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" pack
 
 
 # Modify default theme
-sed -i 's/luci-theme-bootstrap/luci-theme-argonne/g' feeds/luci/collections/luci/Makefile
-sed -i 's/bootstrap/argonne/g' feeds/luci/modules/luci-base/root/etc/config/luci
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
+sed -i 's/bootstrap/argon/g' feeds/luci/modules/luci-base/root/etc/config/luci
 
 
 # Modify maximum connections
