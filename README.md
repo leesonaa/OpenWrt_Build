@@ -1,7 +1,7 @@
 # OpenWrt_Build
 
 ## 介绍  
-[OpenWrt_H68K_Build-no wifi](https://github.com/leesonaa/OpenWrt_Build)
+[OpenWrt_H68K_Build-mt7921 wifi](https://github.com/leesonaa/OpenWrt_Build)
 
 项目Fork自Ing大佬仓库[OpenWrt_Build](https://github.com/wjz304/OpenWrt_Build)
 
