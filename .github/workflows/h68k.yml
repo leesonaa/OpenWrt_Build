@@ -73,8 +73,8 @@ jobs:
         #sed -i 's/^TARGET_DEVICES += .*/#&/' openwrt/target/linux/rockchip/image/armv8.mk
         # 打开 hinlink_opc-h68k 
         #sed -i 's/^#TARGET_DEVICES += hinlink_opc-h68k/TARGET_DEVICES += hinlink_opc-h68k/' openwrt/target/linux/rockchip/image/armv8.mk
-        #改5.15为6.1版
-        sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=6.1/g' openwrt/target/linux/rockchip/Makefile
+        # 改5.15为6.1
+        #sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=6.1/g' openwrt/target/linux/rockchip/Makefile
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
