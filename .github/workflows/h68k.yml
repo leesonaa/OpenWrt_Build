@@ -98,6 +98,11 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_SHELL
 
+    - name: Make menuconfig
+      run: |
+           cd openwrt
+           make defconfig
+
     - name: Check and Push config
       run: |
         [ -e $CONFIG_FILE ] && cp openwrt/.config $CONFIG_FILE
@@ -110,7 +115,6 @@ jobs:
     - name: Compile the firmware
       run: |
         cd openwrt
-
         echo -e "download package"
         make download -j8
 
