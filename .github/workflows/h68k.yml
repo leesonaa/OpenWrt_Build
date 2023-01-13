@@ -27,13 +27,13 @@ env:
   FEEDS_CONF: h68k.feeds.conf.default
   CONFIG_FILE: h68k.config
   DIY_SHELL: h68k-diy.sh
-  TZ: Asia/Hong_Kong
+  TZ: Asia/Shanghai
 
 
 jobs:
   build:
     name: Build OpenWrt-H68K
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     - name: Checkout
@@ -43,7 +43,7 @@ jobs:
       run : |
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
-        sudo timedatectl set-timezone "Asia/Hong_Kong"
+        sudo timedatectl set-timezone "Asia/Shanghai"
 
     - name: Initialization environment
       env:
