@@ -104,7 +104,7 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' packag
 #sed -i 's/"Turbo ACC 网络加速"/"Turbo ACC"/g' package/feeds/luci/luci-app-turboacc/po/zh-cn/turboacc.po    # `grep "Turbo ACC 网络加速" -rl ./`
 #sed -i 's/"实时流量监测"/"监测"/g' package/feeds/luci/luci-app-wrtbwmon/po/zh-cn/wrtbwmon.po    # `grep "实时流量监测" -rl ./`
 #sed -i 's/"Argon 主题设置"/"主题设置"/g' package/feeds/ing/luci-app-argon-config/po/zh-cn/argon-config.po    # `grep "Argon 主题设置" -rl ./`
-
+#sed -i 's/"title": "Dashboard",/""title": "主页"," package/feeds/luci/luci-mod-dashboard/root/usr/share/luci/menu.d/luci-mod-dashboard.json
 
 # build po2lmo
 #if [ -d "feeds/ing/luci-app-openclash/tools/po2lmo" ]; then
