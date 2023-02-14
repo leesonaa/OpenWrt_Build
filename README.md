@@ -18,7 +18,7 @@
 
 
 ## 说明
->20230103精简版
+>精简版
 
 >源码仓库：[Lean's LEDE](https://github.com/coolsnowwolf/lede)  
 
