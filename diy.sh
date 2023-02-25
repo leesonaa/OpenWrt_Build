@@ -44,8 +44,8 @@ sed -i 's/192.168.1.1/192.168.100.1/g' package/base-files/files/bin/config_gener
 #sed -i 's/mu_beamformer=0/mu_beamformer=1/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 # Modify the version number
-sed -i 's/sed -i/# sed -i/g' package/emortal/default-settings/files/99-default-settings-chinese
-sed -i "/exit 0/\a OpenWrt build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /' package/emortal/default-settings/files/99-default-settings-chinese
+#sed -i 's/sed -i/# sed -i/g' package/emortal/default-settings/files/99-default-settings-chinese
+#sed -i "/exit 0/\a OpenWrt build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /' package/emortal/default-settings/files/99-default-settings-chinese
 
 
 # Modify network setting
