@@ -24,7 +24,7 @@ on:
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: openwrt-21.02
-  FEEDS_CONF: feeds.conf.default
+  #FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
   DIY_SHELL: diy.sh
   TZ: Asia/Shanghai
@@ -68,12 +68,12 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         [ -e 040-del-rss-log.patch ] && cp 040-del-rss-log.patch openwrt/package/kernel/r8125/patches/040-del-rss-log.patch
+        sed -i '$a src-git leesonaa https://github.com/leesonaa/openwrt-packages' feeds.conf.default
+        cat feeds.conf.default
 
-        # 改5.15为6.1
-        #sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=6.1/g' openwrt/target/linux/rockchip/Makefile
-    - name: Load custom feeds
-      run: |
-        [ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
+    #- name: Load custom feeds
+      #run: |
+        #[ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
