@@ -1,7 +1,7 @@
 # OpenWrt_Build
 
 ## 介绍  
-[OpenWrt_H68K_Build-mt7921 wifi](https://github.com/leesonaa/OpenWrt_Build)
+[OpenWrt_Build](https://github.com/leesonaa/OpenWrt_Build)
 
 项目Fork自Ing大佬仓库[OpenWrt_Build](https://github.com/wjz304/OpenWrt_Build)
 
@@ -20,7 +20,7 @@
 ## 说明
 >精简版
 
->源码仓库：[Lean's LEDE](https://github.com/coolsnowwolf/lede)  
+>源码仓库：[Lienol's OpenWrt](https://github.com/Lienol/openwrt)  
 
 >默认后台： 192.168.100.1 默认密码 password  
 
@@ -29,6 +29,7 @@
 
 ## 鸣谢
 - [OpenWrt](https://github.com/openwrt/openwrt)
+- [Lienol's OpenWrt](https://github.com/Lienol/openwrt)
 - [Lean's LEDE](https://github.com/coolsnowwolf/lede)
 - [P3TERX's Actions](https://github.com/P3TERX/Actions-OpenWrt)
 - [SuLingGG's Actions](https://github.com/SuLingGG/OpenWrt-Rpi)
