@@ -68,12 +68,15 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         [ -e 040-del-rss-log.patch ] && cp 040-del-rss-log.patch openwrt/package/kernel/r8125/patches/040-del-rss-log.patch
-        rm -rf openwrt/package/default-settings/i18n
+        
         [ -e i18n] && cp i18n openwrt/package/default-settings/i18n
         cat openwrt/package/default-settings/i18n/more.zh-cn.po
         cd openwrt
+        rm -rf /package/default-settings/i18n
+        git clone https://github.com/leesonaa/i18n  /package/default-settings/i18n
         sed -i '$a src-git leesonaa https://github.com/leesonaa/openwrt-packages' feeds.conf.default
         cat feeds.conf.default
+        cat package/default-settings/i18n/more.zh-cn.po
 
     #- name: Load custom feeds
       #run: |
