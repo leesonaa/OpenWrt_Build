@@ -16,6 +16,8 @@
 
 [![Build OpenWrt-H68K](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/h68k.yml/badge.svg)](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/h68k.yml)
 
+[![Build OpenWrt](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/build.yml/badge.svg?event=release)](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/build.yml)
+
 
 ## 说明
 >精简版
