@@ -27,6 +27,8 @@
 # Modify default IP
 sed -i 's/192.168.1.1/192.168.100.1/g' package/base-files/files/bin/config_generate
 
+# Del default opkg list
+sed -i '/sed -i "s\/# \/\/g" \/etc\/opkg\/distfeeds.conf/a\sed -i "\/openwrt_leesonaa\/d" \/etc\/opkg\/distfeeds.conf' package/default-settings/files/zzz-default-settings
 
 # Modify password to Null
 #sed -i '/CYXluq4wUazHjmCDBCqXF/d' package/lean/default-settings/files/zzz-default-settings
