@@ -152,7 +152,7 @@ jobs:
         echo "firmware_dir=$PWD" >> $GITHUB_ENV
 
     - name: Upload firmware to release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v1.1.0
       if: (!cancelled())
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -167,7 +167,7 @@ jobs:
     #    keep_minimum_runs: 9
 
     - name: Remove old Releases
-      uses: dev-drprasad/delete-older-releases@v0.1.0
+      uses: dev-drprasad/delete-older-releases@v0.2.0
       with:
         keep_latest: 9
         delete_tags: true
