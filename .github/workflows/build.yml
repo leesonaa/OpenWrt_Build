@@ -69,11 +69,9 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         [ -e 040-del-rss-log.patch ] && cp 040-del-rss-log.patch openwrt/package/kernel/r8125/patches/040-del-rss-log.patch
         cd openwrt
-        rm -rf package/default-settings/i18n
-        svn export https://github.com/leesonaa/diy/trunk/i18n package/default-settings/i18n
+        sed -i '/luci/csrc-git luci https://github.com/openwrt/luci;openwrt-22.01' feeds.conf.default
         sed -i '$a src-git leesonaa https://github.com/leesonaa/openwrt-packages' feeds.conf.default
         cat feeds.conf.default
-        cat package/default-settings/i18n/more.zh-cn.po
 
     #- name: Load custom feeds
       #run: |
@@ -83,10 +81,6 @@ jobs:
       run:  | 
         cd openwrt 
         ./scripts/feeds update -a
-        rm -rf feeds/luci/modules/luci-mod-dashboard/htdocs/luci-static/resources/view/dashboard/css
-        svn export https://github.com/leesonaa/diy/trunk/css feeds/luci/modules/luci-mod-dashboard/htdocs/luci-static/resources/view/dashboard/css
-        rm -rf feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/bootstrap
-        svn export https://github.com/leesonaa/diy/trunk/bootstrap feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/bootstrap
         
     - name: Install feeds
       run: |
