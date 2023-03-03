@@ -69,7 +69,7 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         [ -e 040-del-rss-log.patch ] && cp 040-del-rss-log.patch openwrt/package/kernel/r8125/patches/040-del-rss-log.patch
         cd openwrt
-        sed -i '/luci/csrc-git luci https://github.com/openwrt/luci;openwrt-22.01' feeds.conf.default
+        sed -i '/luci/csrc-git luci https://github.com/openwrt/luci;openwrt-21.02' feeds.conf.default
         sed -i '$a src-git leesonaa https://github.com/leesonaa/openwrt-packages' feeds.conf.default
         cat feeds.conf.default
 
