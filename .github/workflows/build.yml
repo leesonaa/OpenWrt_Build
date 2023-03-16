@@ -23,7 +23,7 @@ on:
 
 env:
   REPO_URL: https://github.com/Lienol/openwrt
-  REPO_BRANCH: 21.02
+  REPO_BRANCH: 22.03
   #FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
   DIY_SHELL: diy.sh
@@ -75,23 +75,17 @@ jobs:
         cat feeds.conf.default
         cat package/default-settings/i18n/more.zh-cn.po
 
-    #- name: Load custom feeds
-    #  run: |
-    #    [ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
-    - name: co igc drivers
-      run: |
-        cd openwrt/target/linux/x86/
-        svn export https://github.com/coolsnowwolf/lede/trunk/target/linux/x86/files-5.4
-        ls -l
-
     - name: Update feeds
-      run:  | 
-        cd openwrt 
-        ./scripts/feeds update -a
-        rm -rf feeds/luci/modules/luci-mod-dashboard/htdocs/luci-static/resources/view/dashboard/css
-        svn export https://github.com/leesonaa/diy/trunk/css feeds/luci/modules/luci-mod-dashboard/htdocs/luci-static/resources/view/dashboard/css
-        rm -rf feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/bootstrap
-        svn export https://github.com/leesonaa/diy/trunk/bootstrap feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/bootstrap
+      run: cd openwrt &&  ./scripts/feeds update -a
+      
+#    - name: Update feeds
+#      run:  | 
+#        cd openwrt 
+#        ./scripts/feeds update -a
+#        rm -rf feeds/luci/modules/luci-mod-dashboard/htdocs/luci-static/resources/view/dashboard/css
+#        svn export https://github.com/leesonaa/diy/trunk/css feeds/luci/modules/luci-mod-dashboard/htdocs/luci-static/resources/view/dashboard/css
+#        rm -rf feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/bootstrap
+#        svn export https://github.com/leesonaa/diy/trunk/bootstrap feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/bootstrap
         
     - name: Install feeds
       run: |
