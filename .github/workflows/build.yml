@@ -76,8 +76,13 @@ jobs:
         cat package/default-settings/i18n/more.zh-cn.po
 
     #- name: Load custom feeds
-      #run: |
-        #[ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
+    #  run: |
+    #    [ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
+    - name: co igc drivers
+      run: |
+        cd openwrt/target/linux/x86/
+        svn export https://github.com/coolsnowwolf/lede/trunk/target/linux/x86/files-5.4
+        ls -l
 
     - name: Update feeds
       run:  | 
