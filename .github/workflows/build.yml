@@ -75,17 +75,17 @@ jobs:
         cat feeds.conf.default
         cat package/default-settings/i18n/more.zh-cn.po
 
-    - name: Update feeds
-      run: cd openwrt &&  ./scripts/feeds update -a
-      
 #    - name: Update feeds
-#      run:  | 
-#        cd openwrt 
-#        ./scripts/feeds update -a
-#        rm -rf feeds/luci/modules/luci-mod-dashboard/htdocs/luci-static/resources/view/dashboard/css
-#        svn export https://github.com/leesonaa/diy/trunk/css feeds/luci/modules/luci-mod-dashboard/htdocs/luci-static/resources/view/dashboard/css
-#        rm -rf feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/bootstrap
-#        svn export https://github.com/leesonaa/diy/trunk/bootstrap feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/bootstrap
+#      run: cd openwrt &&  ./scripts/feeds update -a
+      
+    - name: Update feeds
+      run:  | 
+        cd openwrt 
+        ./scripts/feeds update -a
+        rm -rf feeds/luci/modules/luci-mod-dashboard/htdocs/luci-static/resources/view/dashboard/css
+        svn export https://github.com/leesonaa/diy/trunk/css feeds/luci/modules/luci-mod-dashboard/htdocs/luci-static/resources/view/dashboard/css
+        rm -rf feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/bootstrap
+        svn export https://github.com/leesonaa/diy/trunk/bootstrap feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/bootstrap
         
     - name: Install feeds
       run: |
