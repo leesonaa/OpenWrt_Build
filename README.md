@@ -24,7 +24,7 @@
 
 >源码仓库：[Lienol's OpenWrt](https://github.com/Lienol/openwrt)  
 
->默认后台： 192.168.100.1 默认密码 password  
+>默认后台： 192.168.100.1 默认密码 空 
 
 >感谢@wjz304大佬手把手的指导.
 
