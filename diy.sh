@@ -76,8 +76,9 @@ sed -i 's/msgstr "总览"/msgstr "主页"/g' feeds/luci/modules/luci-mod-dashboa
 
 
 # Modify default theme
-#sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
-#sed -i 's/bootstrap/argon/g' feeds/luci/modules/luci-base/root/etc/config/luci
+sed -i 's/luci-theme-bootstrap/luci-theme-bootstrap-mod/g' feeds/luci/collections/luci/Makefile
+sed -i 's/bootstrap/bootstrap_mod/g' feeds/luci/modules/luci-base/root/etc/config/luci
+
 
 
 # Modify maximum connections
