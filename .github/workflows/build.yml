@@ -84,7 +84,18 @@ jobs:
         svn export https://github.com/leesonaa/diy/trunk/css feeds/luci/modules/luci-mod-dashboard/htdocs/luci-static/resources/view/dashboard/css
         rm -rf feeds/luci/themes/luci-theme-bootstrap-mod/htdocs/luci-static/bootstrap_mod
         svn export https://github.com/leesonaa/diy/trunk/bootstrap_mod feeds/luci/themes/luci-theme-bootstrap-mod/htdocs/luci-static/bootstrap_mod
-        
+
+
+
+    - name: Load custom configuration
+      run: |
+        [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt/.config
+        chmod +x $DIY_SHELL
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_SHELL
+
+
+
     - name: Install feeds
       run: |
          cd openwrt  && ./scripts/feeds install -a
@@ -99,12 +110,7 @@ jobs:
        #    git clone https://github.com/esirplayground/luci-app-poweroff.git
         #   mv luci-app-poweroff package/feeds/luci/luci-app-poweroff      
 
-    - name: Load custom configuration
-      run: |
-        [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt/.config
-        chmod +x $DIY_SHELL
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_SHELL
+
 
     - name: Make menuconfig
       run: |
