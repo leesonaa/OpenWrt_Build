@@ -78,7 +78,7 @@ sed -i "s/MultiWAN 管理器/多线负载/" feeds/luci/applications/luci-app-mwa
 
 # Modify default theme
 sed -i 's/luci-theme-bootstrap/luci-theme-bootstrap-mod/g' feeds/luci/collections/luci/Makefile
-sed -i 's/bootstrap/bootstrap_mod/g' feeds/luci/modules/luci-base/root/etc/config/luci
+#sed -i 's/bootstrap/bootstrap_mod/g' feeds/luci/modules/luci-base/root/etc/config/luci
 
 
 
