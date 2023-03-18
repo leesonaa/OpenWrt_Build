@@ -86,7 +86,13 @@ jobs:
         svn export https://github.com/leesonaa/diy/trunk/bootstrap_mod feeds/luci/themes/luci-theme-bootstrap-mod/htdocs/luci-static/bootstrap_mod
 
 
+    - name: Install feeds
+      run: |
+         cd openwrt  && ./scripts/feeds install -a
 
+  
+
+        
     - name: Load custom configuration
       run: |
         [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt/.config
@@ -95,27 +101,10 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_SHELL
 
 
-
-    - name: Install feeds
-      run: |
-         cd openwrt  && ./scripts/feeds install -a
-    
-    
-    #rm -rf package/feeds/luci/luci-app-dockerman
-     #cp -a feeds/leesonaa/luci-app-dockerman package/feeds/luci/luci-app-dockerman
-
-    #- name: Clone poweroff
-     # run: |
-      #     cd openwrt
-       #    git clone https://github.com/esirplayground/luci-app-poweroff.git
-        #   mv luci-app-poweroff package/feeds/luci/luci-app-poweroff      
-
-
-
-    - name: Make menuconfig
-      run: |
-           cd openwrt
-           make defconfig
+#    - name: Make menuconfig
+#      run: |
+#           cd openwrt
+#           make defconfig
 
     - name: Check and Push config
       run: |
@@ -125,6 +114,8 @@ jobs:
           git commit -m "update $(date +%Y-%m-%d" "%H:%M:%S)"
           git push -f
         fi
+
+
 
     - name: Compile the firmware
       run: |
