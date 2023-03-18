@@ -44,7 +44,7 @@ sed -i "/sed -i 's#openwrt\/luci#lienol\/openwrt-luci#g'/s/^/#/" package/default
 # ^ 行首   $行尾   
 # sed -n ''p   n和p徐搭配     -i为直接修改   s为替换   g 全部全局
 # sed -n '/需要查找的内容/'p 目标文件
-sed -i 's/msgstr "总览"/msgstr "主页"/g' feeds/luci/modules/luci-mod-dashboard/po/zh_Hans/dashboard.po
+#sed -i 's/msgstr "总览"/msgstr "主页"/g' feeds/luci/modules/luci-mod-dashboard/po/zh_Hans/dashboard.po
 sed -i "s/MultiWAN 管理器/多线负载/" feeds/luci/applications/luci-app-mwan3/po/zh_Hans/mwan3.po
 
 
