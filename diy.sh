@@ -30,7 +30,7 @@ sed -i 's/192.168.1.1/192.168.100.1/g' package/base-files/files/bin/config_gener
 # Del default opkg list
 sed -i '/sed -i "s\/# \/\/g" \/etc\/opkg\/distfeeds.conf/a\sed -i "\/openwrt_leesonaa\/d" \/etc\/opkg\/distfeeds.conf' package/default-settings/files/zzz-default-settings
 
-# Open deauflt theme
+# Open default theme
 sed -i '/luci.main.mediaurlbase/s/^#//'g package/default-settings/files/zzz-default-settings
 
 #sed -i "s/sed -i 's#openwrt\/luci#lienol\/openwrt-luci#g'/sed -i 's#openwrt\/luci#leenson\/openwrt-luci#g'/g" package/default-settings/files/zzz-default-settings
