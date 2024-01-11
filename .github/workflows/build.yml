@@ -11,7 +11,7 @@
 #
 
 
-name: Build OpenWrt
+name: Build OpenWrt-NAS
 
 on:
   schedule:
@@ -22,9 +22,9 @@ on:
 
 
 env:
-  REPO_URL: https://github.com/Lienol/openwrt
-  REPO_BRANCH: 22.03
-  #FEEDS_CONF: feeds.conf.default
+  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_BRANCH: master
+  FEEDS_CONF: h68k.feeds.conf.default
   CONFIG_FILE: .config
   DIY_SHELL: diy.sh
   TZ: Asia/Shanghai
@@ -32,7 +32,7 @@ env:
 
 jobs:
   build:
-    name: Build OpenWrt
+    name: Build OpenWrt-NAS
     runs-on: ubuntu-latest
 
     steps:
@@ -53,46 +53,41 @@ jobs:
         sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
         sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
 
-        sudo -E apt-get update
-        sudo apt-get install -y ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential \
+        sudo -E apt update
+        sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
         bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
         git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev \
         libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz \
-        mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip libpython3-dev qemu-utils \
-        rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
-        sudo -E apt-get -y autoremove --purge
-        sudo -E apt-get clean
+        mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools \
+        libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip \
+        vim wget xmlto xxd zlib1g-dev
+        sudo -E apt -y autoremove --purge
+        sudo -E apt clean
 
     - name: Clone source code
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        [ -e 040-del-rss-log.patch ] && cp 040-del-rss-log.patch openwrt/package/kernel/r8125/patches/040-del-rss-log.patch
-        cd openwrt
-        sed -i '$a src-git leesonaa https://github.com/leesonaa/openwrt-packages' feeds.conf.default
-        cat feeds.conf.default  
-        rm -rf package/default-settings/i18n
-        svn export https://github.com/leesonaa/diy/trunk/i18n package/default-settings/i18n
-        cat package/default-settings/i18n/more.zh-cn.po
-        
-      
-    - name: Update feeds
-      run:  | 
-        cd openwrt 
-        ./scripts/feeds update -a
-        rm -rf feeds/luci/modules/luci-mod-dashboard/htdocs/luci-static/resources/view/dashboard/css
-        svn export https://github.com/leesonaa/diy/trunk/css feeds/luci/modules/luci-mod-dashboard/htdocs/luci-static/resources/view/dashboard/css
-        rm -rf feeds/luci/themes/luci-theme-bootstrap-mod/htdocs/luci-static/bootstrap_mod
-        svn export https://github.com/leesonaa/diy/trunk/bootstrap_mod feeds/luci/themes/luci-theme-bootstrap-mod/htdocs/luci-static/bootstrap_mod
+       # [ -e 040-del-rss-log.patch ] && cp 040-del-rss-log.patch openwrt/package/lean/r8125/patches/040-del-rss-log.patch
 
+        # 改5.15为6.1
+        #sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=6.1/g' openwrt/target/linux/rockchip/Makefile
+    - name: Load custom feeds
+      run: |
+        [ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
+
+    - name: Update feeds
+      run: cd openwrt && ./scripts/feeds update -a
 
     - name: Install feeds
-      run: |
-         cd openwrt  && ./scripts/feeds install -a
+      run: cd openwrt && ./scripts/feeds install -a
 
-  
+    #- name: Clone poweroff
+     # run: |
+      #     cd openwrt
+       #    git clone https://github.com/esirplayground/luci-app-poweroff.git
+        #   mv luci-app-poweroff package/feeds/luci/luci-app-poweroff      
 
-        
     - name: Load custom configuration
       run: |
         [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt/.config
@@ -100,11 +95,10 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_SHELL
 
-
-#    - name: Make menuconfig
-#      run: |
-#           cd openwrt
-#           make defconfig
+    - name: Make menuconfig
+      run: |
+           cd openwrt
+           make defconfig
 
     - name: Check and Push config
       run: |
@@ -114,8 +108,6 @@ jobs:
           git commit -m "update $(date +%Y-%m-%d" "%H:%M:%S)"
           git push -f
         fi
-
-
 
     - name: Compile the firmware
       run: |
@@ -161,10 +153,10 @@ jobs:
     #    retain_days: 1
     #    keep_minimum_runs: 9
 
-    - name: Remove old Releases
-      uses: dev-drprasad/delete-older-releases@v0.2.1
-      with:
-        keep_latest: 9
-        delete_tags: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+   # - name: Remove old Releases
+   #   uses: dev-drprasad/delete-older-releases@v0.2.0
+   #   with:
+   #     keep_latest: 9
+   #     delete_tags: true
+   #   env:
+   #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

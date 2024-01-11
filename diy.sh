@@ -28,14 +28,14 @@
 sed -i 's/192.168.1.1/192.168.100.1/g' package/base-files/files/bin/config_generate
 
 # Del default opkg list
-sed -i '/sed -i "s\/# \/\/g" \/etc\/opkg\/distfeeds.conf/a\sed -i "\/openwrt_leesonaa\/d" \/etc\/opkg\/distfeeds.conf' package/default-settings/files/zzz-default-settings
+sed -i '/sed -i "s\/# \/\/g" \/etc\/opkg\/distfeeds.conf/a\sed -i "\/openwrt_leesonaa\/d" \/etc\/opkg\/distfeeds.conf' package/lean/default-settings/files/zzz-default-settings
 
 # Open default theme
-sed -i '/luci.main.mediaurlbase/s/^#//'g package/default-settings/files/zzz-default-settings
+#sed -i '/luci.main.mediaurlbase/s/^#//'g package/default-settings/files/zzz-default-settings
 
 #sed -i "s/sed -i 's#openwrt\/luci#lienol\/openwrt-luci#g'/sed -i 's#openwrt\/luci#leenson\/openwrt-luci#g'/g" package/default-settings/files/zzz-default-settings
 # 注释主页foot显示
-sed -i "/sed -i 's#openwrt\/luci#lienol\/openwrt-luci#g'/s/^/#/" package/default-settings/files/zzz-default-settings
+#sed -i "/sed -i 's#openwrt\/luci#lienol\/openwrt-luci#g'/s/^/#/" package/default-settings/files/zzz-default-settings
 #                                                       /s/^/#/ 替换行首为#   即加注释
 #
 #
@@ -44,8 +44,8 @@ sed -i "/sed -i 's#openwrt\/luci#lienol\/openwrt-luci#g'/s/^/#/" package/default
 # ^ 行首   $行尾   
 # sed -n ''p   n和p徐搭配     -i为直接修改   s为替换   g 全部全局
 # sed -n '/需要查找的内容/'p 目标文件
-sed -i 's/msgstr "概览"/msgstr "主页"/g' feeds/luci/modules/luci-mod-dashboard/po/zh_Hans/dashboard.po
-sed -i "s/MultiWAN 管理器/多线负载/" feeds/luci/applications/luci-app-mwan3/po/zh_Hans/mwan3.po
+#sed -i 's/msgstr "概览"/msgstr "主页"/g' feeds/luci/modules/luci-mod-dashboard/po/zh_Hans/dashboard.po
+#sed -i "s/MultiWAN 管理器/多线负载/" feeds/luci/applications/luci-app-mwan3/po/zh_Hans/mwan3.po
 
 
 
