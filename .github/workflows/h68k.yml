@@ -22,9 +22,9 @@ on:
 
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
-  FEEDS_CONF: h68k.feeds.conf.default
+  REPO_URL: https://github.com/DHDAXCW/lede-rockchip
+  REPO_BRANCH: stable
+  #FEEDS_CONF: h68k.feeds.conf.default
   CONFIG_FILE: h68k.config
   DIY_SHELL: h68k-diy.sh
   TZ: Asia/Shanghai
@@ -72,9 +72,9 @@ jobs:
 
         # 改5.15为6.1
         #sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=6.1/g' openwrt/target/linux/rockchip/Makefile
-    - name: Load custom feeds
-      run: |
-        [ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
+#    - name: Load custom feeds
+#      run: |
+#        [ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
