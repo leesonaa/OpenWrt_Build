@@ -22,7 +22,7 @@
 ## 说明
 >精简版
 
->源码仓库：[Lienol's OpenWrt](https://github.com/Lienol/openwrt)  
+>源码仓库：[DHDAXCW's OpenWrt](https://github.com/DHDAXCW/lede-rockchip)  
 
 >默认后台： 192.168.100.1 默认密码 空 
 
@@ -37,3 +37,4 @@
 - [SuLingGG's Actions](https://github.com/SuLingGG/OpenWrt-Rpi)
 - [esir](https://github.com/esirplayground)
 - [Ing](https://github.com/wjz304/OpenWrt_Build)
+- [DHDAXCW](https://github.com/DHDAXCW/lede-rockchip) 
