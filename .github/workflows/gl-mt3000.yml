@@ -46,13 +46,9 @@ jobs:
         sudo timedatectl set-timezone "Asia/Shanghai"
 
     - name: Initialization environment
-      env:
-        DEBIAN_FRONTEND: noninteractive
       run: |
-        docker rmi `docker images -q`
-        sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
-
+        sudo apt update -y
+        sudo apt full-upgrade -y
         sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
         bzip2 ccache clang clangd cmake cpio curl device-tree-compiler ecj fastjar flex gawk gettext gcc-multilib \
         g++-multilib git gperf haveged help2man intltool lib32gcc-s1 libc6-dev-i386 libelf-dev libglib2.0-dev \
@@ -117,7 +113,7 @@ jobs:
       if: (!cancelled())
       run: |
         cd openwrt/bin/targets/*/*
-        rm -rf packages *.buildinfo *.manifest *.bin
+        rm -rf packages *.buildinfo *.manifest
         sed -i '/buildinfo/d; /\.bin/d; /\.manifest/d' sha256sums
         for i in `ls` ; do gzip $i; done
         echo "firmware_dir=$PWD" >> $GITHUB_ENV
