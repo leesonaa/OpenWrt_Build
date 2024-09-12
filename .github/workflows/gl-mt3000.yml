@@ -38,6 +38,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@main
+
+    - name: Set up Git configuration
+      run: |
+        git config --global user.email "git-actions@github.com"
+        git config --global user.name "git-actions"
       
     - name: Initialization environment
       env:
