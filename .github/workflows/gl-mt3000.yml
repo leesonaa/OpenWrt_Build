@@ -121,7 +121,6 @@ jobs:
         tree openwrt/bin/targets
         rm -rf packages *.buildinfo *.manifest
         sed -i '/buildinfo/d; /\.bin/d; /\.manifest/d' sha256sums
-        for i in `ls` ; do gzip $i; done
         echo "firmware_dir=$PWD" >> $GITHUB_ENV
 
     - name: Upload firmware to release
