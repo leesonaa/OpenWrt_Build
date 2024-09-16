@@ -15,11 +15,10 @@
 </a>
 
  H68K[![Build OpenWrt-H68K](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/h68k.yml/badge.svg)](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/h68k.yml)
-
+ gl-mt3000[![Build OpenWrt-GL-MT3000](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/gl-mt3000.yml/badge.svg)](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/gl-mt3000.yml)
 
 
 ## 说明
->精简版
 
 >源码仓库：[DHDAXCW's OpenWrt](https://github.com/DHDAXCW/lede-rockchip)  
 
