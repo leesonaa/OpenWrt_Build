@@ -25,8 +25,8 @@ env:
   REPO_URL: https://github.com/DHDAXCW/lede-rockchip
   REPO_BRANCH: stable
   #FEEDS_CONF: h68k.feeds.conf.default
-  CONFIG_FILE: h68k.config
-  DIY_SHELL: h68k-diy.sh
+  CONFIG_FILE: h68k/h68k.config
+  DIY_SHELL: h68k/h68k-diy.sh
   TZ: Asia/Shanghai
 
 

@@ -25,8 +25,8 @@ env:
   REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x.git
   REPO_BRANCH: openwrt-21.02
   #FEEDS_CONF: h68k.feeds.conf.default
-  CONFIG_FILE: mt-3000.config
-  DIY_SHELL: mt3kdiy.sh
+  CONFIG_FILE: mt-3000/mt-3000.config
+  DIY_SHELL: mt-3000/mt3kdiy.sh
   TZ: Asia/Shanghai
 
 

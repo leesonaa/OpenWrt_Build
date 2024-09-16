@@ -16,7 +16,6 @@
 
  H68K[![Build OpenWrt-H68K](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/h68k.yml/badge.svg)](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/h68k.yml)
 
- X86-64[![Build OpenWrt](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/build.yml/badge.svg)](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/build.yml)
 
 
 ## 说明
