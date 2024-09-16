@@ -14,8 +14,8 @@
 <img src="https://img.shields.io/github/license/mashape/apistatus.svg?style=flat" alt="license"/>
 </a>
 
- H68K[![Build OpenWrt-H68K](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/h68k.yml/badge.svg)](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/h68k.yml)
- gl-mt3000[![Build OpenWrt-GL-MT3000](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/gl-mt3000.yml/badge.svg)](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/gl-mt3000.yml)
+[![Build OpenWrt-H68K](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/h68k.yml/badge.svg)](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/h68k.yml)
+[![Build OpenWrt-GL-MT3000](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/gl-mt3000.yml/badge.svg)](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/gl-mt3000.yml)
 
 
 ## 说明
