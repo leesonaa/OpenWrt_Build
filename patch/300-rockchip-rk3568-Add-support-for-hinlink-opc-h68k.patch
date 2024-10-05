@@ -1,6 +1,4 @@
-diff --git a/arch/arm/dts/rk3568-opc-h68k-u-boot.dtsi b/arch/arm/dts/rk3568-opc-h68k-u-boot.dtsi
-new file mode 100644
-index 0000000000..f4769d12bd
+
 --- /dev/null
 +++ b/arch/arm/dts/rk3568-opc-h68k-u-boot.dtsi
 @@ -0,0 +1,21 @@
@@ -25,9 +23,7 @@ index 0000000000..f4769d12bd
 +	bootph-all;
 +	status = "okay";
 +};
-diff --git a/arch/arm/dts/rk3568-opc-h68k.dts b/arch/arm/dts/rk3568-opc-h68k.dts
-new file mode 100644
-index 0000000000..3e6c801e87
+
 --- /dev/null
 +++ b/arch/arm/dts/rk3568-opc-h68k.dts
 @@ -0,0 +1,78 @@
@@ -109,9 +105,7 @@ index 0000000000..3e6c801e87
 +&vcc3v3_pcie {
 +	gpio = <&gpio2 RK_PD2 GPIO_ACTIVE_HIGH>;
 +};
-diff --git a/configs/opc-h68k-rk3568_defconfig b/configs/opc-h68k-rk3568_defconfig
-new file mode 100644
-index 0000000000..c2a8435f4b
+
 --- /dev/null
 +++ b/configs/opc-h68k-rk3568_defconfig
 @@ -0,0 +1,85 @@
