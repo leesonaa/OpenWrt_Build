@@ -55,10 +55,13 @@ sed -i "s/OpenWrt /OpenWrt build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" pack
 #sed -i '$i uci set network.wan6.ifname="eth0"' package/lean/default-settings/files/zzz-default-settings
 #sed -i '$i uci commit network' package/lean/default-settings/files/zzz-default-settings
 
+# Modify default 
+sed -i  "s#nas#网络服务#g"  package/lean/default-settings/files/zzz-default-settings 
+sed -i '/exit 0/i uci set dhcp.lan.ra_dns="0"\nuci commit dhcp' package/lean/default-settings/files/zzz-default-settings  # 关闭ipv6 ra通告dns
 
 # Modify default theme
-#sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
-#sed -i 's/bootstrap/argon/g' feeds/luci/modules/luci-base/root/etc/config/luci
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
+sed -i 's/bootstrap/argon/g' feeds/luci/modules/luci-base/root/etc/config/luci
 
 
 # Modify maximum connections
