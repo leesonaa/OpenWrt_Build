@@ -25,7 +25,7 @@
 
 
 # Modify default IP
-sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.8.1/g' package/base-files/files/bin/config_generate
 
 
 # Modify password to Null
@@ -56,12 +56,12 @@ sed -i "s/OpenWrt /OpenWrt build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" pack
 #sed -i '$i uci commit network' package/lean/default-settings/files/zzz-default-settings
 
 # Modify default 
-sed -i  "s#nas#网络服务#g"  package/lean/default-settings/files/zzz-default-settings 
+#sed -i  "s#nas#网络服务#g"  package/lean/default-settings/files/zzz-default-settings 
 sed -i '/exit 0/i uci set dhcp.lan.ra_dns="0"\nuci commit dhcp' package/lean/default-settings/files/zzz-default-settings  # 关闭ipv6 ra通告dns
 
 # Modify default theme
-sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
-sed -i 's/bootstrap/argon/g' feeds/luci/modules/luci-base/root/etc/config/luci
+#sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
+#sed -i 's/bootstrap/argon/g' feeds/luci/modules/luci-base/root/etc/config/luci
 
 
 # Modify maximum connections
