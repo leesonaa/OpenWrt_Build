@@ -82,11 +82,13 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    #- name: Clone poweroff
-     # run: |
-      #     cd openwrt
-       #    git clone https://github.com/esirplayground/luci-app-poweroff.git
-        #   mv luci-app-poweroff package/feeds/luci/luci-app-poweroff      
+    - name: Clone luci-app-argon
+      run: |
+           cd openwrt
+           rm -rf package/feeds/luci/luci-app-argon-config
+           rm -rf package/feeds/luci/luci-theme-argon
+           git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/feeds/luci/luci-theme-argon
+           git clone -b 18.06 https://github.com/jerrykuku/luci-app-argon-config.git package/feeds/luci-app-argon-config      
 
     - name: Load custom configuration
       run: |
