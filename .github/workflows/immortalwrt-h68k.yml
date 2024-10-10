@@ -18,7 +18,7 @@ on:
 
 
 env:
-  REPO_URL: https://github.com/leesonaa/immortalwrt
+  REPO_URL: https://github.com/immortalwrt/immortalwrt.git
   REPO_BRANCH: openwrt-23.05
   #FEEDS_CONF: h68k.feeds.conf.default
   CONFIG_FILE: h68k/immortalwrt.config
@@ -64,6 +64,9 @@ jobs:
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
+        cd openwrt
+        git apply ../patch/0001-uboot-rockchip-add-HinLink-H68K-support.patch
+        git apply ../patch/0002-rockchip-add-HinLink-H68K-support.patch
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
