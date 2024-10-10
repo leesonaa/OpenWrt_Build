@@ -11,7 +11,7 @@
 #
 
 
-name: Build OpenWrt-H68K
+name: Build immortalwrt-H68K
 
 on:
   repository_dispatch:
