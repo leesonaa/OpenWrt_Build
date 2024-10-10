@@ -14,7 +14,7 @@
 name: Build immortalwrt-H68K
 
 on:
-  repository_dispatch:
+  workflow_dispatch:
 
 
 env:
