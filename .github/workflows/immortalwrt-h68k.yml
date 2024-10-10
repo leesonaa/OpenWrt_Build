@@ -14,8 +14,7 @@
 name: Build OpenWrt-H68K
 
 on:
-  schedule:
-  workflow_dispatch:
+  repository_dispatch:
 
 
 env:
