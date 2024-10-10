@@ -23,7 +23,7 @@ env:
   REPO_BRANCH: openwrt-23.05
   #FEEDS_CONF: h68k.feeds.conf.default
   CONFIG_FILE: h68k/immortalwrt.config
-  DIY_SHELL: h68k/h68k-diy.sh
+  DIY_SHELL: h68k/immortalwrt-diy.sh
   TZ: Asia/Shanghai
 
 
@@ -65,13 +65,6 @@ jobs:
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-       # [ -e 040-del-rss-log.patch ] && cp 040-del-rss-log.patch openwrt/package/lean/r8125/patches/040-del-rss-log.patch
-
-        # 改5.15为6.1
-        #sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=6.1/g' openwrt/target/linux/rockchip/Makefile
-#    - name: Load custom feeds
-#      run: |
-#        [ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
