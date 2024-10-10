@@ -18,7 +18,7 @@ on:
 
 
 env:
-  REPO_URL: https://github.com/leesonaa/immortalwrt
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: openwrt-23.05
   #FEEDS_CONF: h68k.feeds.conf.default
   CONFIG_FILE: h68k/immortalwrt.config
@@ -36,7 +36,7 @@ jobs:
       uses: actions/checkout@main
       
     - name: Init Env
-      run : |
+      run: |
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
         sudo timedatectl set-timezone "Asia/Shanghai"
@@ -44,10 +44,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        docker rmi `docker images -q`
-        sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
-        sudo -E apt update
+        sudo apt update -y && sudo apt full-upgrade -y
         sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
         bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
         git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev \
@@ -55,12 +52,14 @@ jobs:
         mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools \
         libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip \
         vim wget xmlto xxd zlib1g-dev
-        sudo -E apt -y autoremove --purge
-        sudo -E apt clean
+        docker images -q
     - name: Clone source code
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
+        cd openwrt
+        git apply ../patch/0001-uboot-rockchip-add-HinLink-H68K-support.patch
+        git apply ../patch/0002-rockchip-add-HinLink-H68K-support.patch
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
@@ -89,7 +88,7 @@ jobs:
         [ -e $CONFIG_FILE ] && cp openwrt/.config $CONFIG_FILE
         if [ -n "$(git status -s | grep $CONFIG_FILE)" ]; then
           git add $CONFIG_FILE
-          git commit -m "update $(date +%Y-%m-%d" "%H:%M:%S)"
+          git commit -m "update $(date +%Y-%m-%d %H:%M:%S)"
           git push -f
         fi
     - name: Compile the firmware
@@ -124,17 +123,3 @@ jobs:
       with:
         tag_name: ${{ env.release_tag }}
         files: ${{ env.firmware_dir }}/*
-
-    #- name: Delete workflow runs
-    #  uses: Mattraks/delete-workflow-runs@v2
-    #  with:
-    #    retain_days: 1
-    #    keep_minimum_runs: 9
-
-   # - name: Remove old Releases
-   #   uses: dev-drprasad/delete-older-releases@v0.2.0
-   #   with:
-   #     keep_latest: 9
-   #     delete_tags: true
-   #   env:
-   #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
