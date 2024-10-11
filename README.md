@@ -16,18 +16,20 @@
 
 [![Build OpenWrt-H68K](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/h68k.yml/badge.svg)](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/h68k.yml)
 [![Build OpenWrt-GL-MT3000](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/gl-mt3000.yml/badge.svg)](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/gl-mt3000.yml)
+[![Build immortalwrt-H68K](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/immortalwrt-h68k.yml/badge.svg)](https://github.com/leesonaa/OpenWrt_Build/actions/workflows/immortalwrt-h68k.yml)
 
 
 ## 说明
 
->源码仓库：[DHDAXCW's OpenWrt](https://github.com/DHDAXCW/lede-rockchip)  
+>源码仓库：[DHDAXCW's OpenWrt](https://github.com/DHDAXCW/lede-rockchip) [immortalwrt](https://github.com/immortalwrt/immortalwrt)
 
->默认后台： 192.168.100.1 默认密码 空 
+>默认后台： 192.168.8.1 默认密码 空/password wan - eth0
 
 >感谢@wjz304大佬手把手的指导.
 
 
 ## 鸣谢
+- [immortalwrt](https://github.com/immortalwrt/immortalwrt)
 - [OpenWrt](https://github.com/openwrt/openwrt)
 - [Lienol's OpenWrt](https://github.com/Lienol/openwrt)
 - [Lean's LEDE](https://github.com/coolsnowwolf/lede)
