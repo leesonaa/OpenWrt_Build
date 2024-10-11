@@ -110,6 +110,7 @@ jobs:
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > device_name
         [ -s device_name ] && echo "device_name=_$(cat device_name)" >> $GITHUB_ENV
         echo "release_tag=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_ENV
+    
     - name: Check space usage
       if: (!cancelled())
       run: df -hT
@@ -122,6 +123,7 @@ jobs:
         sed -i '/buildinfo/d; /\.bin/d; /\.manifest/d' sha256sums
         for i in `ls` ; do gzip $i; done
         echo "firmware_dir=$PWD" >> $GITHUB_ENV
+    
     - name: Upload firmware to release
       uses: softprops/action-gh-release@v1
       if: (!cancelled())
