@@ -125,7 +125,7 @@ jobs:
         echo "firmware_dir=$PWD" >> $GITHUB_ENV
     
     - name: Upload firmware to release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       if: (!cancelled())
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
