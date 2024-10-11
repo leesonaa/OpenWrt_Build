@@ -64,8 +64,8 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
-        git apply ../patch/0001-uboot-rockchip-add-HinLink-H68K-support.patch
-        git apply ../patch/0002-rockchip-add-HinLink-H68K-support.patch
+        cp ../patch/add-support.sh
+        bash add-support.sh
     
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
