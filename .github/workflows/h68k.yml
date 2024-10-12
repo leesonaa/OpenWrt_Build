@@ -14,10 +14,10 @@
 name: Build OpenWrt-H68K
 
 on:
-  schedule:
-    - cron: '0 16 1,15 * *'
+  #schedule:
+    #- cron: '0 16 1,15 * *'
     #每个月的1号和15号的UTC时间16点即中国时间夜里12点编译一次
-  repository_dispatch:
+  #repository_dispatch:
   workflow_dispatch:
 
 
