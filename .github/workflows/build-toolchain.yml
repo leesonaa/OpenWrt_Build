@@ -61,7 +61,9 @@ jobs:
       id: cache-toolchain
       uses: actions/cache@v3
       with:
-        path: openwrt/staging_dir/
+        path: ｜
+          openwrt/staging_dir/
+          openwrt/build_dir/          
         key: openwrt-staging
     
     - name: Clone source code
@@ -98,6 +100,12 @@ jobs:
            cd openwrt
            make defconfig
 
+    - name: Restore OpenWrt staging_dir cache
+      uses: actions/cache@v3
+      with:
+        path: openwrt/staging_dir/
+        key: openwrt-staging
+
     - name: Compile the toolchain
       run: |
         cd openwrt
@@ -113,5 +121,7 @@ jobs:
       if: steps.cache-toolchain.outputs.cache-hit != 'true'
       uses: actions/cache@v3
       with:
-        path: openwrt/staging_dir/
+        path: ｜
+          openwrt/staging_dir/
+          openwrt/build_dir/
         key: openwrt-staging
