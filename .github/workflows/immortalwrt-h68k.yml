@@ -95,6 +95,13 @@ jobs:
           git commit -m "update $(date +%Y-%m-%d %H:%M:%S)"
           git push -f
         fi
+
+    - name: Restore OpenWrt staging_dir cache
+      uses: actions/cache@v3
+      with:
+        path: openwrt/staging_dir/
+        key: openwrt-staging
+  
     - name: Compile the firmware
       run: |
         cd openwrt
