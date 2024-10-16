@@ -58,7 +58,8 @@ jobs:
     
     - name: Clone source code
       run: |
-        df -hT $PWD
+        df -hT
+        pwd
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
         cp ../patch/add-support.sh .
@@ -77,16 +78,19 @@ jobs:
            rm -rf package/feeds/luci/luci-theme-argon
            git clone https://github.com/jerrykuku/luci-theme-argon.git package/feeds/luci/luci-theme-argon
            git clone https://github.com/jerrykuku/luci-app-argon-config.git package/feeds/luci-app-argon-config      
+   
     - name: Load custom configuration
       run: |
         [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt/.config
         chmod +x $DIY_SHELL
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_SHELL
+    
     - name: Make menuconfig
       run: |
            cd openwrt
            make defconfig
+    
     - name: Check and Push config
       run: |
         [ -e $CONFIG_FILE ] && cp openwrt/.config $CONFIG_FILE
@@ -95,12 +99,6 @@ jobs:
           git commit -m "update $(date +%Y-%m-%d %H:%M:%S)"
           git push -f
         fi
-
-    - name: Restore OpenWrt staging_dir cache
-      uses: actions/cache@v3
-      with:
-        path: openwrt/staging_dir/
-        key: openwrt-staging
   
     - name: Compile the firmware
       run: |
@@ -117,7 +115,9 @@ jobs:
     
     - name: Check space usage
       if: (!cancelled())
-      run: df -hT
+      run: |
+        df -hT
+        tree
 
     - name: Organize files
       if: (!cancelled())
