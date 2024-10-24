@@ -839,10 +839,10 @@ EOF
 echo "------------TARGET ---------------"
 
 # 1. change led
-sed -i '/esac/i \hinlink,opc-h68k)\n\tucidef_set_led_netdev "wan" "WAN" "blue:net" "eth0"\n\t;;' target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
+sed -i '/esac/i \hinlink,opc-h68k)\n\tucidef_set_led_netdev "wan" "WAN" "blue:net" "eth2"\n\t;;' target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
 
 # 2. change network
-sed -i '/lyt/i \\thinlink,opc-h68k)\n\t\tucidef_set_interfaces_lan_wan "eth1 eth2 eth3" "eth0"\n\t\t;;' target/linux/rockchip/armv8/base-files/etc/board.d/02_network
+sed -i '/lyt/i \\thinlink,opc-h68k)\n\t\tucidef_set_interfaces_lan_wan "eth0 eth1 eth3" "eth2"\n\t\t;;' target/linux/rockchip/armv8/base-files/etc/board.d/02_network
 sed -i '0,/armsom,sige3|\\/!{0,/armsom,sige3|\\/s//armsom,sige3|\\\n\thinlink,opc-h68k|\\/}' target/linux/rockchip/armv8/base-files/etc/board.d/02_network
 
 # 3. change net-smp-affinity
