@@ -90,7 +90,6 @@ jobs:
     - name: Make menuconfig
       run: |
            cd openwrt
-           echo "CONFIG_PACKAGE_luci-app-oaf=y" >>.config
            make defconfig
     
     - name: Check and Push config
