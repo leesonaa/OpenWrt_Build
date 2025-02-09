@@ -78,7 +78,8 @@ jobs:
            rm -rf package/feeds/luci/luci-theme-argon
            git clone https://github.com/jerrykuku/luci-theme-argon.git package/feeds/luci/luci-theme-argon
            git clone https://github.com/jerrykuku/luci-app-argon-config.git package/feeds/luci-app-argon-config      
-   
+           git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+           
     - name: Load custom configuration
       run: |
         [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt/.config
@@ -89,6 +90,7 @@ jobs:
     - name: Make menuconfig
       run: |
            cd openwrt
+           echo "CONFIG_PACKAGE_luci-app-oaf=y" >>.config
            make defconfig
     
     - name: Check and Push config
