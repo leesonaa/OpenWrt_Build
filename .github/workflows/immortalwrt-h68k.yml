@@ -77,8 +77,7 @@ jobs:
            rm -rf package/feeds/luci/luci-app-argon-config
            rm -rf package/feeds/luci/luci-theme-argon
            git clone https://github.com/jerrykuku/luci-theme-argon.git package/feeds/luci/luci-theme-argon
-           git clone https://github.com/jerrykuku/luci-app-argon-config.git package/feeds/luci-app-argon-config      
-           git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+           git clone https://github.com/jerrykuku/luci-app-argon-config.git package/feeds/luci-app-argon-config
            
     - name: Load custom configuration
       run: |
