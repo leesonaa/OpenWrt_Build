@@ -112,15 +112,17 @@ jobs:
 
     - name: Check space usage
       if: (!cancelled())
-      run: df -hT
+      run: |
+        df -hT
+        tree openwrt
 
     - name: Organize files
       if: (!cancelled())
       run: |
         cd openwrt/bin/targets/*/*
-        tree openwrt/bin/targets
-        rm -rf packages *.buildinfo *.manifest
+        rm -rf packages *.buildinfo *.manifest *.bin
         sed -i '/buildinfo/d; /\.bin/d; /\.manifest/d' sha256sums
+        for i in `ls` ; do gzip $i; done
         echo "firmware_dir=$PWD" >> $GITHUB_ENV
 
     - name: Upload firmware to release
