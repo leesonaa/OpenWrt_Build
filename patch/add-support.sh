@@ -1647,7 +1647,7 @@ EOF
 
 # 5. change patch
 
-sed -i 's/lyt-t68m/opc-h68k/g' target/linux/rockchip/patches-5.15/900-arm64-boot-add-dts-files.patch
+sed -i 's/lyt-t68m/opc-h68k/g' target/linux/rockchip/patches-6.6/900-arm64-boot-add-dts-files.patch
 
 # 6. add soc chose
 
