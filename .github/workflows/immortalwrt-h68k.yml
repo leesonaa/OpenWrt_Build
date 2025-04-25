@@ -21,7 +21,7 @@ env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: openwrt-23.05
   #FEEDS_CONF: h68k.feeds.conf.default
-  CONFIG_FILE: h68k/2410.config
+  CONFIG_FILE: h68k/immortalwrt.config
   DIY_SHELL: h68k/immortalwrt-diy.sh
   TZ: Asia/Shanghai
 
