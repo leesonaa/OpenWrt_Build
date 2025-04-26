@@ -903,45 +903,45 @@ cat << EOF >> target/linux/rockchip/files/arch/arm64/boot/dts/rockchip/rk3568-op
 };
 
 &gmac0 {
-        phy-mode = "rgmii";
-        clock_in_out = "output";
-        snps,reset-gpio = <&gpio2 RK_PD3 GPIO_ACTIVE_LOW>;
-        snps,reset-active-low;
-        snps,reset-delays-us = <0 20000 100000>;
-        assigned-clocks = <&cru SCLK_GMAC0_RX_TX>, <&cru SCLK_GMAC0>;
-        assigned-clock-parents = <&cru SCLK_GMAC0_RGMII_SPEED>, <&cru CLK_MAC0_2TOP>;
-        assigned-clock-rates = <0>, <125000000>;
-        pinctrl-names = "default";
-        pinctrl-0 = <&gmac0_miim
-                 &gmac0_tx_bus2
-                 &gmac0_rx_bus2
-                 &gmac0_rgmii_clk
-                 &gmac0_rgmii_bus>;
-        tx_delay = <0x19>;
-        rx_delay = <0x10>;
-        phy-handle = <&rgmii_phy0>;
-        status = "okay";
+	assigned-clocks = <&cru SCLK_GMAC0_RX_TX>, <&cru SCLK_GMAC0>;
+	assigned-clock-parents = <&cru SCLK_GMAC0_RGMII_SPEED>;
+	assigned-clock-rates = <0>, <125000000>;
+	clock_in_out = "output";
+	phy-mode = "rgmii";
+	pinctrl-names = "default";
+	pinctrl-0 = <&gmac0_miim
+		     &gmac0_tx_bus2
+		     &gmac0_rx_bus2
+		     &gmac0_rgmii_clk
+		     &gmac0_rgmii_bus>;
+	snps,reset-gpio = <&gpio2 RK_PD3 GPIO_ACTIVE_LOW>;
+	snps,reset-active-low;
+	snps,reset-delays-us = <0 50000 200000>;
+	tx_delay = <0x2e>;
+	rx_delay = <0x28>;
+	phy-handle = <&rgmii_phy0>;
+	status = "okay";
 };
 
 &gmac1 {
-        phy-mode = "rgmii";
-        clock_in_out = "output";
-        snps,reset-gpio = <&gpio1 RK_PB0 GPIO_ACTIVE_LOW>;
-        snps,reset-active-low;
-        snps,reset-delays-us = <0 20000 100000>;
-        assigned-clocks = <&cru SCLK_GMAC1_RX_TX>, <&cru SCLK_GMAC1>;
-        assigned-clock-parents = <&cru SCLK_GMAC1_RGMII_SPEED>, <&cru CLK_MAC1_2TOP>;
-        assigned-clock-rates = <0>, <125000000>;
-        pinctrl-names = "default";
-        pinctrl-0 = <&gmac1m1_miim
-                 &gmac1m1_tx_bus2
-                 &gmac1m1_rx_bus2
-                 &gmac1m1_rgmii_clk
-                 &gmac1m1_rgmii_bus>;
-	    tx_delay = <0x4f>;
-	    rx_delay = <0x26>;
-        phy-handle = <&rgmii_phy1>;
-        status = "okay";
+	assigned-clocks = <&cru SCLK_GMAC1_RX_TX>, <&cru SCLK_GMAC1>;
+	assigned-clock-parents = <&cru SCLK_GMAC1_RGMII_SPEED>;
+	assigned-clock-rates = <0>, <125000000>;
+	clock_in_out = "output";
+	phy-mode = "rgmii";
+	pinctrl-names = "default";
+	pinctrl-0 = <&gmac1m1_miim
+		     &gmac1m1_tx_bus2
+		     &gmac1m1_rx_bus2
+		     &gmac1m1_rgmii_clk
+		     &gmac1m1_rgmii_bus>;
+	snps,reset-gpio = <&gpio1 RK_PB0 GPIO_ACTIVE_LOW>;
+	snps,reset-active-low;
+	snps,reset-delays-us = <0 50000 200000>;
+	tx_delay = <0x42>;
+	rx_delay = <0x25>;
+	phy-handle = <&rgmii_phy1>;
+	status = "okay";
 };
 
 &mdio0 {
@@ -1647,7 +1647,7 @@ EOF
 
 # 5. change patch
 
-sed -i 's/lyt-t68m/opc-h68k/g' target/linux/rockchip/patches-5.15/900-arm64-boot-add-dts-files.patch
+sed -i 's/lyt-t68m/opc-h68k/g' target/linux/rockchip/patches-6.6/900-arm64-boot-add-dts-files.patch
 
 # 6. add soc chose
 

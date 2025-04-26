@@ -19,7 +19,7 @@ on:
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
-  REPO_BRANCH: openwrt-23.05
+  REPO_BRANCH: openwrt-24.10
   #FEEDS_CONF: h68k.feeds.conf.default
   CONFIG_FILE: h68k/immortalwrt.config
   DIY_SHELL: h68k/immortalwrt-diy.sh
@@ -64,6 +64,7 @@ jobs:
         cd openwrt
         cp ../patch/add-support.sh .
         bash add-support.sh
+        cp ../patch/001-add-h68k-support.patch package/boot/uboot-rockchip/patches/
     
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -117,7 +118,6 @@ jobs:
       if: (!cancelled())
       run: |
         df -hT
-        tree
 
     - name: Organize files
       if: (!cancelled())
