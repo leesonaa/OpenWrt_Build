@@ -1,22 +1,7 @@
-#
-# Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
-#
-# This is free software, licensed under the MIT License.
-# See /LICENSE for more information.
-#
-# https://github.com/P3TERX/Actions-OpenWrt
-# Description: Build OpenWrt using GitHub Actions
-#
-# Copyright (C) 2022 Ing
-#
-
-
 name: Build immortalwrt-H68K
 
 on:
   workflow_dispatch:
-
-
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: openwrt-24.10
@@ -47,6 +32,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+        sudo docker rmi `sudo docker images -q`
         sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
         sudo -E apt-get autoremove --purge
         sudo -E apt-get clean
@@ -126,18 +112,17 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ env.release }}-${{ env.DEVICES }}-${{ env.SOURCE_REPO }}
-        release_name: "OpenWrt Firmware - ${{ env.release }}-${{ env.DEVICE }}"
         body: |
-          **OpenWrt Image Information**
+          ###OpenWrt Image Information
 
-          - **Default IP:** 192.168.100.1
-          - **Default WAN:** eth2
-          - **Default Username:** root
-          - **Default Password:** none
-          - **Default WIFI Name:** immrotalwrt
-          - **Default WIFI Password:** none
+          - Default IP: 192.168.100.1
+          - Default WAN: eth2
+          - Default Username: root
+          - Default Password: none
+          - Default WIFI Name: immrotalwrt
+          - Default WIFI Password: none
 
-          **OpenWrt Source Code**
+          ###OpenWrt Source Code
           - ${{ env.REPO_URL }}
         files: ${{ env.firmware_dir }}/*
 
