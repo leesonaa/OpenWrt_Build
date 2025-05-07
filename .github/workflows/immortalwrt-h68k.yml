@@ -9,7 +9,7 @@ env:
   DIY_SHELL: h68k/immortalwrt-diy.sh
   TZ: Asia/Shanghai
   DEVICE: hinlink_h68k
-  SOURCE_REPO: immortalwrt
+  SOURCE_REPO: immortalwrt-24.10
 
 
 jobs:
@@ -111,9 +111,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ env.release }}-${{ env.DEVICES }}-${{ env.SOURCE_REPO }}
+        tag_name: ${{ env.release }}-${{ env.DEVICE }}-${{ env.SOURCE_REPO }}
         body: |
-          ###OpenWrt Image Information
+          ### OpenWrt Image Information
 
           - Default IP: 192.168.100.1
           - Default WAN: eth2
@@ -122,7 +122,7 @@ jobs:
           - Default WIFI Name: immrotalwrt
           - Default WIFI Password: none
 
-          ###OpenWrt Source Code
+          ### OpenWrt Source Code
           - ${{ env.REPO_URL }}
         files: ${{ env.firmware_dir }}/*
 
