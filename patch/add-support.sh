@@ -42,7 +42,7 @@ cat << EOF >> package/boot/uboot-rockchip/src/arch/arm/dts/rk3568-opc-h68k.dts
 	assigned-clock-parents = <&cru SCLK_GMAC0_RGMII_SPEED>;
 	assigned-clock-rates = <0>, <125000000>;
 	clock_in_out = "output";
-	phy-mode = "rgmii-id";
+	phy-mode = "rgmii";
 	pinctrl-names = "default";
 	pinctrl-0 = <&gmac0_miim
 		     &gmac0_tx_bus2
@@ -51,9 +51,9 @@ cat << EOF >> package/boot/uboot-rockchip/src/arch/arm/dts/rk3568-opc-h68k.dts
 		     &gmac0_rgmii_bus>;
 	snps,reset-gpio = <&gpio2 RK_PD3 GPIO_ACTIVE_LOW>;
 	snps,reset-active-low;
-	snps,reset-delays-us = <0 20000 100000>;
-	tx_delay = <0x3c>;
-	rx_delay = <0x2f>;
+	snps,reset-delays-us = <0 50000 200000>;
+	tx_delay = <0x2e>;
+	rx_delay = <0x28>;
 	phy-handle = <&rgmii_phy0>;
 	status = "okay";
 };
@@ -63,7 +63,7 @@ cat << EOF >> package/boot/uboot-rockchip/src/arch/arm/dts/rk3568-opc-h68k.dts
 	assigned-clock-parents = <&cru SCLK_GMAC1_RGMII_SPEED>;
 	assigned-clock-rates = <0>, <125000000>;
 	clock_in_out = "output";
-	phy-mode = "rgmii-id";
+	phy-mode = "rgmii";
 	pinctrl-names = "default";
 	pinctrl-0 = <&gmac1m1_miim
 		     &gmac1m1_tx_bus2
@@ -72,9 +72,9 @@ cat << EOF >> package/boot/uboot-rockchip/src/arch/arm/dts/rk3568-opc-h68k.dts
 		     &gmac1m1_rgmii_bus>;
 	snps,reset-gpio = <&gpio1 RK_PB0 GPIO_ACTIVE_LOW>;
 	snps,reset-active-low;
-	snps,reset-delays-us = <0 20000 100000>;
-	tx_delay = <0x4f>;
-	rx_delay = <0x26>;
+	snps,reset-delays-us = <0 50000 200000>;
+	tx_delay = <0x42>;
+	rx_delay = <0x25>;
 	phy-handle = <&rgmii_phy1>;
 	status = "okay";
 };
@@ -840,6 +840,7 @@ echo "------------TARGET ---------------"
 
 # 1. change led
 sed -i '/esac/i \hinlink,opc-h68k)\n\tucidef_set_led_netdev "wan" "WAN" "blue:net" "eth2"\n\t;;' target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
+sed -i '/esac/i \\tucidef_set_led_ide "disk" "DISK" "yellow:disk" \n\t;;' target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
 
 # 2. change network
 sed -i '/lyt/i \\thinlink,opc-h68k)\n\t\tucidef_set_interfaces_lan_wan "eth0 eth1 eth3" "eth2"\n\t\t;;' target/linux/rockchip/armv8/base-files/etc/board.d/02_network
@@ -850,35 +851,42 @@ sed -i '0,/armsom,sige3|\\/!{0,/armsom,sige3|\\/s//armsom,sige3|\\\n\thinlink,op
 sed -i '/esac/d ' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 cat << EOF >> target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 hinlink,opc-h68k)
-	set_interface_core "0-3" "eth0"
-	set_interface_core "1" "eth1"
-	set_interface_core "2" "eth2-0"
-	set_interface_core "2" "eth2-16"
-	set_interface_core "1" "eth2-18"
-	set_interface_core "3" "eth3-0"
-	set_interface_core "3" "eth3-18"
-	set_interface_core "1" "eth3-16"
-	rfc=32768
-	sysctl net.core.rps_sock_flow_entries=\$rfc
-	for fileRfc in \$(ls /sys/class/net/eth*/queues/rx-*/rps_flow_cnt)
-	do
-		eth_name=\$(echo "\$fileRfc"|awk -F/ '{print \$5}')
-		echo \$rfc > \$fileRfc
-	done
-	#0101
-	echo 9 > /sys/class/net/eth0/queues/rx-0/rps_cpus
-	echo 9 > /sys/class/net/eth1/queues/rx-0/rps_cpus
-	#0011
-	echo 3 > /sys/class/net/eth2/queues/rx-0/rps_cpus
-	echo 3 > /sys/class/net/eth2/queues/rx-1/rps_cpus
-	#1100
-	echo c > /sys/class/net/eth3/queues/rx-0/rps_cpus
-	echo c > /sys/class/net/eth3/queues/rx-1/rps_cpus
-	/usr/sbin/ethtool -K eth0 tso on sg on tx on
-	/usr/sbin/ethtool -K eth1 tso on sg on tx on
-	/usr/sbin/ethtool -K eth2 tso on sg on tx on
-	/usr/sbin/ethtool -K eth3 tso on sg on tx on
-	;;
+    # 设置 CPU 亲和性（中断绑定）
+    set_interface_core "0-1" "eth0"       # 千兆网卡绑定到核心 0-1
+    set_interface_core "0-1" "eth1"
+    set_interface_core "2-3" "eth2"       # 2.5G 网卡绑定到核心 2-3
+    set_interface_core "2-3" "eth3"
+
+    # 启用 RPS/RFS（接收流量分发）
+    rfc=32768
+    sysctl net.core.rps_sock_flow_entries=\$rfc
+
+    # 为所有网卡的接收队列设置 RPS
+    for fileRfc in \$(ls /sys/class/net/eth*/queues/rx-*/rps_flow_cnt); do
+        echo \$rfc > \$fileRfc
+    done
+
+    echo 3 > /sys/class/net/eth0/queues/rx-0/rps_cpus  # 0011（核心 0-1）
+    echo 3 > /sys/class/net/eth1/queues/rx-0/rps_cpus
+
+    echo c > /sys/class/net/eth2/queues/rx-0/rps_cpus  # 1100（核心 2-3）
+    echo c > /sys/class/net/eth2/queues/rx-1/rps_cpus
+    echo c > /sys/class/net/eth2/queues/rx-2/rps_cpus
+    echo c > /sys/class/net/eth2/queues/rx-3/rps_cpus
+
+    echo c > /sys/class/net/eth3/queues/rx-0/rps_cpus
+    echo c > /sys/class/net/eth3/queues/rx-1/rps_cpus
+    echo c > /sys/class/net/eth3/queues/rx-2/rps_cpus
+    echo c > /sys/class/net/eth3/queues/rx-3/rps_cpus
+
+    # 启用硬件加速（TSO/SG/GRO）
+    /usr/sbin/ethtool -K eth2 tso on sg on tx on gro on
+    /usr/sbin/ethtool -K eth3 tso on sg on tx on gro on
+
+    # 设置多队列（根据硬件支持分别配置 RX/TX）
+    /usr/sbin/ethtool -L eth2 rx 4 tx 2    # RX 队列 4，TX 队列 2
+    /usr/sbin/ethtool -L eth3 rx 4 tx 2
+    ;;
 esac
 EOF
 
