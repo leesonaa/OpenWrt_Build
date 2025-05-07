@@ -134,5 +134,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ env.release_tag }}
+        tag_name: ${{ env.release_tag }}-hinlink-h68k-immortalwrt-$REPO_BRANCH
         files: ${{ env.firmware_dir }}/*
