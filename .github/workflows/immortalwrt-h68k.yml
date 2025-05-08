@@ -32,6 +32,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         ls -l /
+        tree /home
         sudo apt update && sudo apt --fix-broken install -y clang-15 llvm-15 npm
         sudo docker rmi `sudo docker images -q`
         sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
