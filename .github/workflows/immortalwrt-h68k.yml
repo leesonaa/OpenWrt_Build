@@ -34,7 +34,7 @@ jobs:
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
         sudo docker rmi `sudo docker images -q`
         sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
-        sudo -E apt-get install -y clang-15 llvm-15 npm
+        sudo apt update && sudo apt --fix-broken install -y clang-15 llvm-15 npm
         sudo -E apt-get autoremove --purge
         sudo -E apt-get clean
     
