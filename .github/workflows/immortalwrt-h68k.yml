@@ -26,7 +26,7 @@ jobs:
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
         sudo timedatectl set-timezone "$TZ"
-        sudo apt update && sudo apt install nala -y
+        sudo apt update && sudo apt install nala duf -y
     
     - name: Initialization environment
       env:
@@ -43,7 +43,7 @@ jobs:
     
     - name: Clone source code
       run: |
-        df -hT
+        duf
         sudo -E chmod -R 777 /mnt
         git clone $REPO_URL -b $REPO_BRANCH /mnt/openwrt
         cd /mnt/openwrt
@@ -101,7 +101,7 @@ jobs:
     - name: Check space usage
       if: (!cancelled())
       run: |
-        df -hT
+        duf
 
     - name: Organize files
       if: (!cancelled())
