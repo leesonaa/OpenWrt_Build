@@ -40,22 +40,21 @@ jobs:
     - name: Clone source code
       run: |
         df -hT
-        pwd
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
-        cd openwrt
-        cp ../patch/add-support.sh .
+        git clone $REPO_URL -b $REPO_BRANCH /mnt/openwrt
+        cd /mnt/openwrt
+        cp /home/runner/work/OpenWrt_Build/patch/add-support.sh .
         bash add-support.sh
-        cp ../patch/001-add-h68k-support.patch package/boot/uboot-rockchip/patches/
+        cp /home/runner/work/OpenWrt_Build/patch/001-add-h68k-support.patch package/boot/uboot-rockchip/patches/
         
     - name: Update feeds
-      run: cd openwrt && ./scripts/feeds update -a
+      run: cd /mnt/openwrt && ./scripts/feeds update -a
 
     - name: Install feeds
-      run: cd openwrt && ./scripts/feeds install -a
+      run: cd /mnt/openwrt && ./scripts/feeds install -a
 
     - name: Clone luci-app-argon && luci-app-daed
       run: |
-           cd openwrt
+           cd /mnt/openwrt
            rm -rf package/feeds/luci/luci-app-argon-config
            rm -rf package/feeds/luci/luci-theme-argon
            git clone https://github.com/jerrykuku/luci-theme-argon.git package/feeds/luci/luci-theme-argon
@@ -65,20 +64,20 @@ jobs:
            
     - name: Load custom configuration
       run: |
-        [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt/.config
+        [ -e $CONFIG_FILE ] && cp $CONFIG_FILE /mnt/openwrt/.config
         chmod +x $DIY_SHELL
-        cd openwrt
+        cd /mnt/openwrt
         $GITHUB_WORKSPACE/$DIY_SHELL
         for l in "CONFIG_DEVEL=y" "CONFIG_KERNEL_DEBUG_INFO=y" "CONFIG_KERNEL_DEBUG_INFO_REDUCED=n" "CONFIG_KERNEL_DEBUG_INFO_BTF=y" "CONFIG_KERNEL_CGROUPS=y" "CONFIG_KERNEL_CGROUP_BPF=y" "CONFIG_KERNEL_BPF_EVENTS=y" "CONFIG_BPF_TOOLCHAIN_HOST=y" "CONFIG_KERNEL_XDP_SOCKETS=y" "CONFIG_PACKAGE_kmod-xdp-sockets-diag=y"; do grep -qxF "$l" .config || echo "$l" >> .config; done
     
     - name: Make menuconfig
       run: |
-           cd openwrt
+           cd /mnt/openwrt
            make defconfig
     
     - name: Check and Push config
       run: |
-        [ -e $CONFIG_FILE ] && cp openwrt/.config $CONFIG_FILE
+        [ -e $CONFIG_FILE ] && cp /mnt/openwrt/.config $CONFIG_FILE
         if [ -n "$(git status -s | grep $CONFIG_FILE)" ]; then
           git add $CONFIG_FILE
           git commit -m "update config"
@@ -87,7 +86,7 @@ jobs:
   
     - name: Compile the firmware
       run: |
-        cd openwrt
+        cd /mnt/openwrt
         echo -e "download package"
         make download -j$(nproc)
         echo -e "$(nproc) thread compile"
@@ -102,7 +101,7 @@ jobs:
     - name: Organize files
       if: (!cancelled())
       run: |
-        cd openwrt/bin/targets/*/*
+        cd /mnt/openwrt/bin/targets/*/*
         rm -rf packages *.buildinfo *.manifest *.bin
         sed -i '/buildinfo/d; /\.bin/d; /\.manifest/d' sha256sums
         for i in `ls` ; do gzip $i; done
