@@ -34,6 +34,7 @@ jobs:
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
         sudo docker rmi `sudo docker images -q`
         sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
+        sudo -E apt-get install -y clang-15 llvm-15 npm
         sudo -E apt-get autoremove --purge
         sudo -E apt-get clean
     
@@ -46,20 +47,22 @@ jobs:
         cp ../patch/add-support.sh .
         bash add-support.sh
         cp ../patch/001-add-h68k-support.patch package/boot/uboot-rockchip/patches/
-    
+        
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    - name: Clone luci-app-argon
+    - name: Clone luci-app-argon && luci-app-daed
       run: |
            cd openwrt
            rm -rf package/feeds/luci/luci-app-argon-config
            rm -rf package/feeds/luci/luci-theme-argon
            git clone https://github.com/jerrykuku/luci-theme-argon.git package/feeds/luci/luci-theme-argon
            git clone https://github.com/jerrykuku/luci-app-argon-config.git package/feeds/luci-app-argon-config
+           git clone https://github.com/QiuSimons/luci-app-daed package/dae
+           mkdir -p Package/libcron && wget -O Package/libcron/Makefile https://raw.githubusercontent.com/immortalwrt/packages/refs/heads/master/libs/libcron/Makefile
            
     - name: Load custom configuration
       run: |
@@ -67,6 +70,7 @@ jobs:
         chmod +x $DIY_SHELL
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_SHELL
+        for l in "CONFIG_DEVEL=y" "CONFIG_KERNEL_DEBUG_INFO=y" "CONFIG_KERNEL_DEBUG_INFO_REDUCED=n" "CONFIG_KERNEL_DEBUG_INFO_BTF=y" "CONFIG_KERNEL_CGROUPS=y" "CONFIG_KERNEL_CGROUP_BPF=y" "CONFIG_KERNEL_BPF_EVENTS=y" "CONFIG_BPF_TOOLCHAIN_HOST=y" "CONFIG_KERNEL_XDP_SOCKETS=y" "CONFIG_PACKAGE_kmod-xdp-sockets-diag=y"; do grep -qxF "$l" .config || echo "$l" >> .config; done
     
     - name: Make menuconfig
       run: |
