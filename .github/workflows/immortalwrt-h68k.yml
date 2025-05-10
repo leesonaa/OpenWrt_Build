@@ -64,8 +64,7 @@ jobs:
            rm -rf package/feeds/luci/luci-theme-argon
            git clone https://github.com/jerrykuku/luci-theme-argon.git package/feeds/luci/luci-theme-argon
            git clone https://github.com/jerrykuku/luci-app-argon-config.git package/feeds/luci-app-argon-config
-           git clone https://github.com/QiuSimons/luci-app-daed package/dae
-           mkdir -p Package/libcron && wget -O Package/libcron/Makefile https://raw.githubusercontent.com/immortalwrt/packages/refs/heads/master/libs/libcron/Makefile
+
            
     - name: Load custom configuration
       run: |
